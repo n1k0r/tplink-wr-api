@@ -12,7 +12,7 @@ from .parse.html import find_scripts
 
 class RouterInterface(ABC):
     @abstractmethod
-    def page(self, name: str, params: dict = {}) -> str:
+    def page(self, name: str, params: Optional[dict] = None) -> str:
         pass
 
 
@@ -56,7 +56,7 @@ class RouterSession(RouterInterface):
     def page_url(self, name: str) -> str:
         return f"{self.base_url()}/{self.token}/userRpm/{name}.htm"
 
-    def page(self, name: str, params: dict = {}) -> str:
+    def page(self, name: str, params: Optional[dict] = None) -> str:
         retry = False
         while True:
             doc = self._page_load_attempt(name, params)
@@ -71,11 +71,11 @@ class RouterSession(RouterInterface):
 
         return doc
 
-    def _page_load_attempt(self, name: str, params: dict = {}) -> str:
+    def _page_load_attempt(self, name: str, params: Optional[dict] = None) -> str:
         url = self.page_url(name)
         referer = self.page_url("MenuRpm")
 
-        resp = self._get(url, headers={"Referer": referer})
+        resp = self._get(url, params=params, headers={"Referer": referer})
         if resp.status_code != requests.codes.OK:
             raise exceptions.PageLoadError(f"HTTP code {resp.status_code}")
 
