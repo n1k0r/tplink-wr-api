@@ -1,10 +1,9 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass, asdict
+from dataclasses import asdict
 
 from tplink_wr.router import RouterInterface
 
 
-@dataclass
 class Fetcher(ABC):
     @staticmethod
     @abstractmethod

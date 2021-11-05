@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Optional
 import base64
 import hashlib
 import re
@@ -16,10 +17,11 @@ class RouterInterface(ABC):
 
 
 class RouterSession(RouterInterface):
-    def __init__(self, host: str, username: str, password: str, *, auto_reauth: bool = True, auth_retries: int = 3) -> str:
+    def __init__(self, host: str, username: str, password: str, *, auto_reauth: bool = True, auth_retries: int = 3, timeout: Optional[int] = None):
         self.host = host
         self.auto_reauth = bool(auto_reauth)
         self.auth_retries = max(auth_retries, 0)
+        self.timeout = timeout
 
         password_hash = hashlib.md5(password.encode()).hexdigest()
         basic_raw = f"{username}:{password_hash}".encode()
@@ -80,6 +82,9 @@ class RouterSession(RouterInterface):
         return resp.text
 
     def _get(self, *args, **kwargs):
+        if "timeout" not in kwargs:
+            kwargs["timeout"] = self.timeout
+
         try:
             return self.session.get(*args, **kwargs)
         except requests.RequestException as e:
