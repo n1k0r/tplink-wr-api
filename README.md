@@ -1,5 +1,9 @@
 # tplink-wr-api
 
+[![Package Version](https://img.shields.io/pypi/v/tplink-wr-api?style=flat-square)](https://pypi.org/project/tplink-wr-api/)
+[![Python Version](https://img.shields.io/pypi/pyversions/tplink-wr-api?style=flat-square)](https://pypi.org/project/tplink-wr-api/)
+[![License](https://img.shields.io/github/license/n1k0r/tplink-wr-api?style=flat-square)](https://github.com/n1k0r/tplink-wr-api/blob/master/LICENSE)
+
 Python API to some budget TP-Link routers.
 
 ## Supported devices

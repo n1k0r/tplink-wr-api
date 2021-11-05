@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="tplink-wr-api",
-    version="0.1.0",
+    version="0.2.0",
     url="https://github.com/n1k0r/tplink-wr-api",
     author="n1k0r",
     author_email="me@n1k0r.me",
